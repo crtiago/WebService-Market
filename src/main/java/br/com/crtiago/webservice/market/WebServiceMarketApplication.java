@@ -11,6 +11,7 @@ public class WebServiceMarketApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(WebServiceMarketApplication.class, args);
+
         try {
             Connection connection = FirebirdDao.getInstance().getConnection();
         } catch (Exception e) {

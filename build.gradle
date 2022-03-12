@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'br.com.crtiago'
-version = '0.0.1-SNAPSHOT'
+version = '1.0'
 sourceCompatibility = '11'
 
 repositories {
@@ -20,6 +20,10 @@ dependencies {
     implementation group: 'net.java.dev.jna', name: 'jna', version: '5.10.0'
     implementation group: 'javax.resource', name: 'connector-api', version: '1.6-alpha-1'
     implementation group: 'org.firebirdsql.jdbc', name: 'jaybird', version: '4.0.5.java11'
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
 }
 
 tasks.named('test') {
