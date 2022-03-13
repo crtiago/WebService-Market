@@ -1,5 +1,8 @@
-package br.com.crtiago.webservice.market.configuration;
+package br.com.crtiago.webservice.market.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum PropertiesTagEnum {
 
     URL("spring.datasource.url"),
@@ -11,9 +14,5 @@ public enum PropertiesTagEnum {
 
     PropertiesTagEnum(String tag) {
         this.tag = tag;
-    }
-
-    public String getTag() {
-        return tag;
     }
 }

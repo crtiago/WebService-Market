@@ -1,12 +1,11 @@
 package br.com.crtiago.webservice.market.manager;
 
 import br.com.crtiago.webservice.market.dao.FirebirdDao;
-import br.com.crtiago.webservice.market.models.ProductEntity;
+import br.com.crtiago.webservice.market.models.ProductModel;
+import br.com.crtiago.webservice.market.query.ProductQuery;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.nio.charset.StandardCharsets;
+import java.sql.*;
 
 public class ProductManager {
 
@@ -20,18 +19,26 @@ public class ProductManager {
         }
     }
 
-    public ProductEntity getProduct(String barcode) {
-        ProductEntity entity = new ProductEntity();
-        String query = "Select DESCRICAO, VENDA from Produtos where CODIGO_BARRAS=".concat(barcode);
+    public ProductModel getProduct(String barcode) {
         try (Statement statement = connection.createStatement()) {
-            ResultSet rs = statement.executeQuery(query);
-            while (rs.next()) {
-                entity.setDescription(rs.getString("DESCRICAO"));
-                entity.setPrice(rs.getFloat("VENDA"));
+            ResultSet rs = statement.executeQuery(ProductQuery.getProductQuery(barcode));
+            if (rs.next()) {
+                return new ProductModel(barcode, rs.getString("DESCRICAO"), rs.getFloat("VENDA"));
             }
         } catch (SQLException e) {
-            System.out.println("Erro ao realizar a consulta do produto");
+            System.out.println("Erro ao realizar a consulta do produto:" + e);
         }
-        return entity;
+        return null;
+    }
+
+    public ProductModel updateProduct(ProductModel product) {
+        try (PreparedStatement prepareStatement = connection.prepareStatement(ProductQuery.updateProductQuery(product))) {
+            prepareStatement.setBytes(1, product.getDescription().getBytes(StandardCharsets.UTF_8));
+            prepareStatement.execute();
+            return getProduct(product.getBarcode());
+        } catch (SQLException e) {
+            System.out.println("Erro ao realizar a atualização do produto:" + e);
+        }
+        return null;
     }
 }

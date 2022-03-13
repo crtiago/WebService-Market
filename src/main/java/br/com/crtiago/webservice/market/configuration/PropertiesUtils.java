@@ -1,5 +1,7 @@
 package br.com.crtiago.webservice.market.configuration;
 
+import br.com.crtiago.webservice.market.enums.PropertiesTagEnum;
+
 import java.util.Properties;
 
 public class PropertiesUtils {

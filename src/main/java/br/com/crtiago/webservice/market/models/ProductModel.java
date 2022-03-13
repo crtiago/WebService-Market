@@ -1,14 +1,14 @@
 package br.com.crtiago.webservice.market.models;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
-@Setter
+@Builder
 @NoArgsConstructor
-public class ProductEntity {
+@AllArgsConstructor
+public class ProductModel {
 
+    private String barcode;
     private String description;
     private float price;
 
