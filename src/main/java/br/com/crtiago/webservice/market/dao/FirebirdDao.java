@@ -18,7 +18,7 @@ public class FirebirdDao {
         return instanceFirebird;
     }
 
-    public Connection getConnection() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+    public Connection getConnection() throws SQLException, ClassNotFoundException {
         Class.forName(PropertiesUtils.getDriver());
         String url = PropertiesUtils.getUrl();
         String user = PropertiesUtils.getUsername();
