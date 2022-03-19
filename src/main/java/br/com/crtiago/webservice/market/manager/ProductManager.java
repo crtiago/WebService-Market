@@ -2,20 +2,26 @@ package br.com.crtiago.webservice.market.manager;
 
 import br.com.crtiago.webservice.market.dao.FirebirdDao;
 import br.com.crtiago.webservice.market.models.ProductModel;
+import br.com.crtiago.webservice.market.models.StockProductModel;
 import br.com.crtiago.webservice.market.query.ProductQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductManager {
 
+    private static Logger LOGGER = LoggerFactory.getLogger(ProductManager.class);
     private Connection connection;
 
     public ProductManager() {
         try {
             connection = FirebirdDao.getInstance().getConnection();
         } catch (Exception e) {
-            System.err.println("Nao foi possivel acessar o banco Firebird " + e);
+            LOGGER.error("Nao foi possivel acessar o banco Firebird: {}", e);
         }
     }
 
@@ -26,7 +32,21 @@ public class ProductManager {
                 return new ProductModel(barcode, rs.getString("DESCRICAO"), rs.getFloat("VENDA"));
             }
         } catch (SQLException e) {
-            System.out.println("Erro ao realizar a consulta do produto:" + e);
+            LOGGER.error("Erro ao realizar a consulta do produto: {}", e);
+        }
+        return null;
+    }
+
+    public List<StockProductModel> getStockProduct() {
+        List<StockProductModel> listProducts = new ArrayList<>();
+        try (Statement statement = connection.createStatement()) {
+            ResultSet rs = statement.executeQuery(ProductQuery.getStockProductQuery());
+            while (rs.next()) {
+                listProducts.add(new StockProductModel(rs.getString("DESCRICAO"), rs.getInt("ESTOQUE_PAF")));
+            }
+            return listProducts;
+        } catch (SQLException e) {
+            LOGGER.error("Erro ao realizar a busca de estoque do produto: {}", e);
         }
         return null;
     }
@@ -37,7 +57,7 @@ public class ProductManager {
             prepareStatement.execute();
             return getProduct(product.getBarcode());
         } catch (SQLException e) {
-            System.out.println("Erro ao realizar a atualização do produto:" + e);
+            LOGGER.error("Erro ao realizar a atualizacao do produto: {}", e);
         }
         return null;
     }

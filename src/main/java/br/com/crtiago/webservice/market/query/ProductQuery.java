@@ -2,9 +2,6 @@ package br.com.crtiago.webservice.market.query;
 
 import br.com.crtiago.webservice.market.models.ProductModel;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-
 public class ProductQuery {
 
     public static String getProductQuery(String barcode) {
@@ -16,5 +13,9 @@ public class ProductQuery {
                 "',DESCRICAO_NOTA = ?" +
                 ",VENDA = " + product.getPrice() +
                 " WHERE CODIGO_BARRAS = " + product.getBarcode();
+    }
+
+    public static String getStockProductQuery() {
+        return "SELECT FIRST 10 DESCRICAO, ESTOQUE_PAF FROM SALDOSESTOQUE ORDER BY ESTOQUE_PAF DESC";//"SELECT DESCRICAO, ESTOQUE FROM PRODUTOS WHERE CODIGO_BARRAS=".concat(barcode);
     }
 }
