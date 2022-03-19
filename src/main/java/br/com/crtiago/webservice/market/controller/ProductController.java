@@ -14,6 +14,7 @@ public class ProductController {
 
     private ProductManager manager = new ProductManager();
 
+   // @RequestMapping(value = "/product", method = RequestMethod.GET)
     @GetMapping("/product")
     public ResponseEntity<ResponseModel> getProduct(@RequestParam(value = "barcode") String barcode) {
         ProductModel product = manager.getProduct(barcode);
@@ -21,6 +22,7 @@ public class ProductController {
     }
 
     @PutMapping("/update-product")
+    //@RequestMapping(value = "/update-product", method = RequestMethod.PUT)
     public ResponseEntity<ResponseModel> updateProduct(@RequestBody ProductModel productModel) {
         ProductModel product = manager.updateProduct(productModel);
         return new ResponseEntity<>(BuildResponseUtils.buildResponse(product), HttpStatus.OK);
