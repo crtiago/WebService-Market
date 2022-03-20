@@ -5,9 +5,9 @@ import br.com.crtiago.webservice.market.models.ResponseModel;
 
 public class BuildResponseUtils {
 
-    public static ResponseModel buildResponse(Object object) {
+    public static ResponseModel buildResponse(Object object, ResponseRequestEnum responseRequestEnum) {
         if (object == null) {
-            return new ResponseModel(ResponseRequestEnum.PRODUCT_NOT_FOUND.getCode(), ResponseRequestEnum.PRODUCT_NOT_FOUND.getDescription(), null);
+            return new ResponseModel(responseRequestEnum.getCode(), responseRequestEnum.getDescription(), null);
         }
         return new ResponseModel(ResponseRequestEnum.SUCCESS.getCode(), ResponseRequestEnum.SUCCESS.getDescription(), object);
     }
