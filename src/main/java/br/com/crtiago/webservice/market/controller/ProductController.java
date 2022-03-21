@@ -24,9 +24,15 @@ public class ProductController {
         return new ResponseEntity<>(BuildResponseUtils.buildResponse(product, ResponseRequestEnum.PRODUCT_NOT_FOUND), HttpStatus.OK);
     }
 
-    @GetMapping("/stock-product")
-    public ResponseEntity<ResponseModel> getStockProduct() {
-        List<StockProductModel> products = manager.getStockProduct();
+    @GetMapping("/positive-stock-product")
+    public ResponseEntity<ResponseModel> getPositiveStockProduct() {
+        List<StockProductModel> products = manager.getPositiveStockProduct();
+        return new ResponseEntity<>(BuildResponseUtils.buildResponse(products, ResponseRequestEnum.STOCK_ERROR), HttpStatus.OK);
+    }
+
+    @GetMapping("/negative-stock-product")
+    public ResponseEntity<ResponseModel> getNegativeStockProduct() {
+        List<StockProductModel> products = manager.getNegativeStockProduct();
         return new ResponseEntity<>(BuildResponseUtils.buildResponse(products, ResponseRequestEnum.STOCK_ERROR), HttpStatus.OK);
     }
 
@@ -37,5 +43,4 @@ public class ProductController {
     }
 
     //TODO Implementar metodo para buscar os produtos com valores incorretos
-    //TODO Implementar metodo para buscar produtos com o estoque negativo
 }

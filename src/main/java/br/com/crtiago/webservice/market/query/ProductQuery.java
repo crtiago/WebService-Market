@@ -15,7 +15,12 @@ public class ProductQuery {
                 " WHERE CODIGO_BARRAS = " + product.getBarcode();
     }
 
-    public static String getStockProductQuery() {
-        return "SELECT FIRST 10 DESCRICAO, ESTOQUE_PAF FROM SALDOSESTOQUE ORDER BY ESTOQUE_PAF DESC";//"SELECT DESCRICAO, ESTOQUE FROM PRODUTOS WHERE CODIGO_BARRAS=".concat(barcode);
+    public static String getPositiveStockProductQuery() {
+        return "SELECT FIRST 10 DISTINCT DESCRICAO, ESTOQUE_PAF FROM SALDOSESTOQUE ORDER BY ESTOQUE_PAF DESC";
+    }
+
+    public static String getNegativeStockProductQuery() {
+        //FIXME ajustar query
+        return "SELECT FIRST 50 DISTINCT DESCRICAO, ESTOQUE_PAF FROM SALDOSESTOQUE  WHERE ESTOQUE_PAF IS NOT NULL AND ESTOQUE_PAF < 0 ORDER BY ESTOQUE_PAF ASC";
     }
 }

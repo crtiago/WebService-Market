@@ -37,16 +37,30 @@ public class ProductManager {
         return null;
     }
 
-    public List<StockProductModel> getStockProduct() {
+    public List<StockProductModel> getPositiveStockProduct() {
         List<StockProductModel> listProducts = new ArrayList<>();
         try (Statement statement = connection.createStatement()) {
-            ResultSet rs = statement.executeQuery(ProductQuery.getStockProductQuery());
+            ResultSet rs = statement.executeQuery(ProductQuery.getPositiveStockProductQuery());
             while (rs.next()) {
                 listProducts.add(new StockProductModel(rs.getString("DESCRICAO"), rs.getInt("ESTOQUE_PAF")));
             }
             return listProducts;
         } catch (SQLException e) {
-            LOGGER.error("Erro ao realizar a busca de estoque do produto: {}", e);
+            LOGGER.error("Erro ao realizar a busca de estoque positivo dos produtos: {}", e);
+        }
+        return null;
+    }
+
+    public List<StockProductModel> getNegativeStockProduct() {
+        List<StockProductModel> listProducts = new ArrayList<>();
+        try (Statement statement = connection.createStatement()) {
+            ResultSet rs = statement.executeQuery(ProductQuery.getNegativeStockProductQuery());
+            while (rs.next()) {
+                listProducts.add(new StockProductModel(rs.getString("DESCRICAO"), rs.getInt("ESTOQUE_PAF")));
+            }
+            return listProducts;
+        } catch (SQLException e) {
+            LOGGER.error("Erro ao realizar a busca de estoque negativo dos produtos: {}", e);
         }
         return null;
     }
