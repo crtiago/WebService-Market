@@ -56,7 +56,7 @@ public class ProductManager {
         try (Statement statement = connection.createStatement()) {
             ResultSet rs = statement.executeQuery(ProductQuery.getNegativeStockProductQuery());
             while (rs.next()) {
-                listProducts.add(new StockProductModel(rs.getString("DESCRICAO"), rs.getInt("ESTOQUE_PAF")));
+                listProducts.add(new StockProductModel(rs.getString("DESCRICAO"), rs.getFloat("ESTOQUE_PAF")));
             }
             return listProducts;
         } catch (SQLException e) {

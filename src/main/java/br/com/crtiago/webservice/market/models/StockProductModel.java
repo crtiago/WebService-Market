@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class StockProductModel {
 
     private String description;
-    private int stock;
+    private float stock;
 
 }

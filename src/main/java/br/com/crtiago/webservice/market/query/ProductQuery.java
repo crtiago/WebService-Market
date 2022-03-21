@@ -20,7 +20,6 @@ public class ProductQuery {
     }
 
     public static String getNegativeStockProductQuery() {
-        //FIXME ajustar query
         return "SELECT FIRST 50 DISTINCT DESCRICAO, ESTOQUE_PAF FROM SALDOSESTOQUE  WHERE ESTOQUE_PAF IS NOT NULL AND ESTOQUE_PAF < 0 ORDER BY ESTOQUE_PAF ASC";
     }
 }
