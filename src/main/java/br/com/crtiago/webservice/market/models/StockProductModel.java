@@ -14,4 +14,11 @@ public class StockProductModel {
     private String description;
     private float stock;
 
+    @Override
+    public String toString() {
+        return "StockProductModel{" +
+                "description='" + description + '\'' +
+                ", stock=" + stock +
+                '}';
+    }
 }

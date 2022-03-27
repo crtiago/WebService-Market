@@ -12,4 +12,13 @@ public class ResponseModel {
     private int code;
     private String description;
     private Object object;
+
+    @Override
+    public String toString() {
+        return "ResponseModel{" +
+                "code=" + code +
+                ", description='" + description + '\'' +
+                ", object=" + object +
+                '}';
+    }
 }
