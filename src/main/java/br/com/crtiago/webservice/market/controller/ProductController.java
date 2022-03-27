@@ -3,6 +3,7 @@ package br.com.crtiago.webservice.market.controller;
 
 import br.com.crtiago.webservice.market.enums.ResponseRequestEnum;
 import br.com.crtiago.webservice.market.manager.ProductManager;
+import br.com.crtiago.webservice.market.models.ProductIncorrectPriceModel;
 import br.com.crtiago.webservice.market.models.ProductModel;
 import br.com.crtiago.webservice.market.models.ResponseModel;
 import br.com.crtiago.webservice.market.models.StockProductModel;
@@ -49,5 +50,11 @@ public class ProductController {
         return new ResponseEntity<>(BuildResponseUtils.buildResponse(product, ResponseRequestEnum.UPDATE_ERROR), HttpStatus.OK);
     }
 
-    //TODO Implementar metodo para buscar os produtos com valores incorretos
+    @GetMapping("/product-incorrect-price")
+    public ResponseEntity<ResponseModel> getProductsWithIncorrectPrice() {
+        LOGGER.info("Requisicao para realizar a busca dos produtos com valores de venda incorretos");
+        List<ProductIncorrectPriceModel> products = manager.getProductsWithIncorrectPrice();
+        return new ResponseEntity<>(BuildResponseUtils.buildResponse(products, ResponseRequestEnum.INCORRECT_PRICE_ERROR), HttpStatus.OK);
+    }
+
 }

@@ -1,6 +1,7 @@
 package br.com.crtiago.webservice.market.manager;
 
 import br.com.crtiago.webservice.market.dao.FirebirdDao;
+import br.com.crtiago.webservice.market.models.ProductIncorrectPriceModel;
 import br.com.crtiago.webservice.market.models.ProductModel;
 import br.com.crtiago.webservice.market.models.StockProductModel;
 import br.com.crtiago.webservice.market.query.ProductQuery;
@@ -72,6 +73,20 @@ public class ProductManager {
             return getProduct(product.getBarcode());
         } catch (SQLException e) {
             LOGGER.error("Erro ao realizar a atualizacao do produto: {}", e);
+        }
+        return null;
+    }
+
+    public List<ProductIncorrectPriceModel> getProductsWithIncorrectPrice() {
+        List<ProductIncorrectPriceModel> listProducts = new ArrayList<>();
+        try (Statement statement = connection.createStatement()) {
+            ResultSet rs = statement.executeQuery(ProductQuery.getProductWithIncorrectPrice());
+            while (rs.next()) {
+                listProducts.add(new ProductIncorrectPriceModel(rs.getString("CODIGO_BARRAS"), rs.getString("DESCRICAO"), rs.getFloat("CUSTO"), rs.getFloat("VENDA")));
+            }
+            return listProducts;
+        } catch (SQLException e) {
+            LOGGER.error("Erro ao realizar a busca de estoque negativo dos produtos: {}", e);
         }
         return null;
     }

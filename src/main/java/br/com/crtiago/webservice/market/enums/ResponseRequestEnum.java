@@ -9,7 +9,8 @@ public enum ResponseRequestEnum {
     SUCCESS(HttpStatus.OK.value(), "Requisição realizada com sucesso!"),
     PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Produto não encontrado!"),
     STOCK_ERROR(HttpStatus.NOT_FOUND.value(), "Não foi possível buscar a lista de estoque dos produtos!"),
-    UPDATE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Não foi possível realizar a atualização do produto!");
+    UPDATE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Não foi possível realizar a atualização do produto!"),
+    INCORRECT_PRICE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Não foi possível buscar a lista de produtos com preços incorretos!");
 
     private int code;
     private String description;

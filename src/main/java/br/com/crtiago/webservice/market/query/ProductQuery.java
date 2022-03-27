@@ -22,4 +22,8 @@ public class ProductQuery {
     public static String getNegativeStockProductQuery() {
         return "SELECT FIRST 50 DISTINCT DESCRICAO, ESTOQUE_PAF FROM SALDOSESTOQUE  WHERE ESTOQUE_PAF IS NOT NULL AND ESTOQUE_PAF < 0 ORDER BY ESTOQUE_PAF ASC";
     }
+
+    public static String getProductWithIncorrectPrice() {
+        return "SELECT FIRST 10 CODIGO_BARRAS, DESCRICAO, CUSTO, VENDA FROM produtos WHERE (CUSTO > VENDA) or ((CUSTO * 1.30) > VENDA)";
+    }
 }
